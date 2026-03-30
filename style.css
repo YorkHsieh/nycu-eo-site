@@ -9,6 +9,10 @@ body {
   color: #1e293b;
 }
 
+body.modal-open {
+  overflow: hidden;
+}
+
 a {
   text-decoration: none;
   color: #8a0f5c;
@@ -47,6 +51,12 @@ a {
   color: #8a0f5c;
 }
 
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 #search {
   width: 280px;
   max-width: 45vw;
@@ -59,7 +69,8 @@ a {
 }
 
 #search:focus,
-select:focus {
+select:focus,
+.auth-form input:focus {
   border-color: #d7265e;
 }
 
@@ -243,6 +254,96 @@ select {
   color: #64748b;
 }
 
+.auth-open-btn,
+.auth-form button,
+#logoutBtn {
+  padding: 10px 14px;
+  border: none;
+  border-radius: 12px;
+  background: #8a0f5c;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.18s ease;
+}
+
+.auth-open-btn:hover,
+.auth-form button:hover,
+#logoutBtn:hover {
+  opacity: 0.92;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  padding: 20px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.modal-card {
+  position: relative;
+  width: min(92vw, 420px);
+  background: white;
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.18);
+}
+
+.modal-card h2 {
+  margin-top: 0;
+  margin-bottom: 8px;
+  color: #8a0f5c;
+}
+
+.modal-close {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  border: none;
+  background: transparent;
+  font-size: 20px;
+  cursor: pointer;
+  color: #475569;
+}
+
+.auth-form {
+  display: grid;
+  gap: 10px;
+  margin: 18px 0;
+}
+
+.auth-form h3 {
+  margin: 0 0 4px;
+  font-size: 16px;
+}
+
+.auth-form input {
+  padding: 10px 12px;
+  border: 1px solid #dbe3ec;
+  border-radius: 12px;
+  font-size: 14px;
+  outline: none;
+}
+
+#authMessage {
+  min-height: 20px;
+  margin: 8px 0 0;
+  font-size: 14px;
+}
+
+#userStatus {
+  margin: 0;
+  color: #64748b;
+}
+
 @media (max-width: 900px) {
   .sidebar {
     position: static;
@@ -269,84 +370,13 @@ select {
     gap: 12px;
   }
 
+  .nav-right {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
   #search {
     width: 100%;
     max-width: 100%;
   }
-}
-.nav-right {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.auth-open-btn,
-.auth-form button,
-#logoutBtn {
-  padding: 10px 14px;
-  border: none;
-  border-radius: 12px;
-  background: #8a0f5c;
-  color: white;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-.auth-open-btn:hover,
-.auth-form button:hover,
-#logoutBtn:hover {
-  opacity: 0.92;
-}
-
-.modal {
-  position: fixed;
-  inset: 0;
-  background: rgba(15, 23, 42, 0.35);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 200;
-}
-
-.hidden {
-  display: none;
-}
-
-.modal-card {
-  position: relative;
-  width: min(92vw, 420px);
-  background: white;
-  border-radius: 20px;
-  padding: 24px;
-  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.18);
-}
-
-.modal-close {
-  position: absolute;
-  top: 12px;
-  right: 14px;
-  border: none;
-  background: transparent;
-  font-size: 20px;
-  cursor: pointer;
-}
-
-.auth-form {
-  display: grid;
-  gap: 10px;
-  margin: 18px 0;
-}
-
-.auth-form input {
-  padding: 10px 12px;
-  border: 1px solid #dbe3ec;
-  border-radius: 12px;
-  font-size: 14px;
-  outline: none;
-}
-
-#authMessage {
-  min-height: 20px;
-  margin: 8px 0 0;
-  font-size: 14px;
 }

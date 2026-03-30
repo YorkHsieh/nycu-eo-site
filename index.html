@@ -15,7 +15,7 @@
 
     <div class="nav-right">
       <input type="text" id="search" placeholder="搜尋科目 / 教授 / 年份..." />
-      <button id="openAuthModal" class="auth-open-btn">登入 / 註冊</button>
+      <button id="openAuthModal" class="auth-open-btn" type="button">登入 / 註冊</button>
     </div>
   </header>
 
@@ -63,10 +63,10 @@
     <section id="courseCards" class="course-card-container"></section>
   </main>
 
-  <div id="authModal" class="modal hidden">
-    <div class="modal-card">
-      <button id="closeAuthModal" class="modal-close">✕</button>
-      <h2>會員登入</h2>
+  <div id="authModal" class="modal hidden" aria-hidden="true">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+      <button id="closeAuthModal" class="modal-close" type="button" aria-label="關閉">✕</button>
+      <h2 id="authTitle">會員登入</h2>
       <p id="userStatus">尚未登入</p>
       <p id="authMessage"></p>
 
@@ -84,29 +84,49 @@
         <button type="submit">登入</button>
       </form>
 
-      <button id="logoutBtn" style="display:none;">登出</button>
+      <button id="logoutBtn" type="button" style="display:none;">登出</button>
     </div>
   </div>
 
   <script src="script.js"></script>
   <script type="module" src="auth.js"></script>
   <script>
-    const authModal = document.getElementById("authModal");
-    const openAuthModal = document.getElementById("openAuthModal");
-    const closeAuthModal = document.getElementById("closeAuthModal");
+    document.addEventListener("DOMContentLoaded", () => {
+      const authModal = document.getElementById("authModal");
+      const openAuthModal = document.getElementById("openAuthModal");
+      const closeAuthModal = document.getElementById("closeAuthModal");
 
-    openAuthModal.addEventListener("click", () => {
-      authModal.classList.remove("hidden");
-    });
-
-    closeAuthModal.addEventListener("click", () => {
-      authModal.classList.add("hidden");
-    });
-
-    authModal.addEventListener("click", (e) => {
-      if (e.target === authModal) {
-        authModal.classList.add("hidden");
+      if (!authModal || !openAuthModal || !closeAuthModal) {
+        console.error("Modal elements not found");
+        return;
       }
+
+      const openModal = () => {
+        authModal.classList.remove("hidden");
+        authModal.setAttribute("aria-hidden", "false");
+        document.body.classList.add("modal-open");
+      };
+
+      const closeModal = () => {
+        authModal.classList.add("hidden");
+        authModal.setAttribute("aria-hidden", "true");
+        document.body.classList.remove("modal-open");
+      };
+
+      openAuthModal.addEventListener("click", openModal);
+      closeAuthModal.addEventListener("click", closeModal);
+
+      authModal.addEventListener("click", (e) => {
+        if (e.target === authModal) {
+          closeModal();
+        }
+      });
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && !authModal.classList.contains("hidden")) {
+          closeModal();
+        }
+      });
     });
   </script>
 </body>
