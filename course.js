@@ -16,7 +16,7 @@ const typeFilter = document.getElementById("detailTypeFilter");
 courseTitle.textContent = subjectName || "未知課程";
 courseSubtitle.textContent = `${subjectName || "此課程"} 的所有資源`;
 
-fetch("data.json")
+fetch(`data.json?v=${Date.now()}`)
   .then((res) => res.json())
   .then((json) => {
     data = json.filter((item) => item.subject === subjectName);

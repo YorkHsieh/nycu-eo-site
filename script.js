@@ -8,7 +8,7 @@ const yearFilter = document.getElementById("yearFilter");
 const categoryFilter = document.getElementById("categoryFilter");
 const typeFilter = document.getElementById("typeFilter");
 
-fetch("data.json")
+fetch(`data.json?v=${Date.now()}`)
   .then((res) => res.json())
   .then((json) => {
     data = json;
