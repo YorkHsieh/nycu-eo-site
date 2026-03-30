@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>課程頁 | NYCU EO 考古網</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="navbar">
+    <div class="nav-left">
+      <img src="logo.png" class="logo" alt="logo" />
+      <a href="index.html" class="back-link">← 回首頁</a>
+    </div>
+  </header>
+
+  <main class="course-page">
+    <section class="course-header">
+      <h1 id="courseTitle">課程名稱</h1>
+      <p id="courseSubtitle">這門課的所有資源</p>
+    </section>
+
+    <section class="filter-bar">
+      <select id="detailProfessorFilter">
+        <option value="">全部教授</option>
+      </select>
+
+      <select id="detailYearFilter">
+        <option value="">全部年份</option>
+      </select>
+
+      <select id="detailCategoryFilter">
+        <option value="">全部檔案類別</option>
+      </select>
+
+      <select id="detailTypeFilter">
+        <option value="">全部檔案類型</option>
+      </select>
+    </section>
+
+    <section id="resourceList" class="resource-list"></section>
+  </main>
+
+  <script src="course.js"></script>
+</body>
+</html>

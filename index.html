@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NYCU EO 考古網</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<div id="authModal" class="modal hidden">
+  <div class="modal-card">
+    <button id="closeAuthModal" class="modal-close">✕</button>
+    <h2>會員登入</h2>
+    <p id="userStatus">尚未登入</p>
+    <p id="authMessage"></p>
+
+    <form id="signupForm" class="auth-form">
+      <h3>註冊</h3>
+      <input type="email" name="email" placeholder="學校信箱 (@nycu.edu.tw)" required />
+      <input type="password" name="password" placeholder="密碼" required />
+      <button type="submit">註冊</button>
+    </form>
+
+    <form id="loginForm" class="auth-form">
+      <h3>登入</h3>
+      <input type="email" name="email" placeholder="學校信箱 (@nycu.edu.tw)" required />
+      <input type="password" name="password" placeholder="密碼" required />
+      <button type="submit">登入</button>
+    </form>
+
+    <button id="logoutBtn" style="display:none;">登出</button>
+  </div>
+</div>
+
+<script type="module" src="auth.js"></script>
+<script>
+  const authModal = document.getElementById("authModal");
+  const openAuthModal = document.getElementById("openAuthModal");
+  const closeAuthModal = document.getElementById("closeAuthModal");
+
+  openAuthModal.addEventListener("click", () => {
+    authModal.classList.remove("hidden");
+  });
+
+  closeAuthModal.addEventListener("click", () => {
+    authModal.classList.add("hidden");
+  });
+
+  authModal.addEventListener("click", (e) => {
+    if (e.target === authModal) {
+      authModal.classList.add("hidden");
+    }
+  });
+</script>
+<body>
+  <header class="navbar">
+  <div class="nav-left">
+    <img src="logo.png" class="logo" alt="logo" />
+    <span>NYCU EO 考古網</span>
+  </div>
+
+  <div class="nav-right">
+    <input type="text" id="search" placeholder="搜尋科目 / 教授 / 年份..." />
+    <button id="openAuthModal" class="auth-open-btn">登入 / 註冊</button>
+  </div>
+</header>
+
+  <aside class="sidebar">
+    <button onclick="filterGrade('全部')">全部</button>
+    <button onclick="filterGrade('大一上')">大一上</button>
+    <button onclick="filterGrade('大一下')">大一下</button>
+    <button onclick="filterGrade('大二上')">大二上</button>
+    <button onclick="filterGrade('大二下')">大二下</button>
+    <button onclick="filterGrade('大三上')">大三上</button>
+    <button onclick="filterGrade('大三下')">大三下</button>
+    <button onclick="filterGrade('大四上')">大四上</button>
+    <button onclick="filterGrade('大四下')">大四下</button>
+    <button onclick="filterGrade('其他')">其他</button>
+  </aside>
+
+  <main>
+    <section class="hero">
+      <h1>NYCU EO 考古網</h1>
+      <p>整理交大光電課程考古題、講義與其他學習資源</p>
+    </section>
+
+    <section class="filter-bar">
+      <select id="subjectFilter">
+        <option value="">全部科目</option>
+      </select>
+
+      <select id="professorFilter">
+        <option value="">全部教授</option>
+      </select>
+
+      <select id="yearFilter">
+        <option value="">全部年份</option>
+      </select>
+
+      <select id="categoryFilter">
+        <option value="">全部檔案類別</option>
+      </select>
+
+      <select id="typeFilter">
+        <option value="">全部檔案類型</option>
+      </select>
+    </section>
+
+    <section id="courseCards" class="course-card-container"></section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
