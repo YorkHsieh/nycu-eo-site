@@ -10,11 +10,17 @@ import {
 document.addEventListener("DOMContentLoaded", () => {
   const signupForm = document.getElementById("signupForm");
   const loginForm = document.getElementById("loginForm");
-  const logoutBtn = document.getElementById("logoutBtn");
   const userStatus = document.getElementById("userStatus");
   const authMessage = document.getElementById("authMessage");
   const openAuthModalBtn = document.getElementById("openAuthModal");
+  const closeAuthModalBtn = document.getElementById("closeAuthModal");
   const authModal = document.getElementById("authModal");
+
+  const userDropdown = document.getElementById("userDropdown");
+  const userDropdownEmail = document.getElementById("userDropdownEmail");
+  const logoutBtn = document.getElementById("logoutBtn");
+
+  let currentVerifiedUser = null;
 
   function setMessage(msg, isError = false) {
     if (!authMessage) return;
@@ -28,11 +34,28 @@ document.addEventListener("DOMContentLoaded", () => {
     return (localPart.slice(0, 2) || localPart || "U").toUpperCase();
   }
 
+  function openModal() {
+    if (!authModal) return;
+    authModal.classList.remove("hidden");
+    authModal.setAttribute("aria-hidden", "false");
+    document.body.classList.add("modal-open");
+  }
+
   function closeModal() {
     if (!authModal) return;
     authModal.classList.add("hidden");
     authModal.setAttribute("aria-hidden", "true");
     document.body.classList.remove("modal-open");
+  }
+
+  function openDropdown() {
+    if (!userDropdown) return;
+    userDropdown.classList.remove("hidden");
+  }
+
+  function closeDropdown() {
+    if (!userDropdown) return;
+    userDropdown.classList.add("hidden");
   }
 
   function updateTopButton(user) {
@@ -42,12 +65,55 @@ document.addEventListener("DOMContentLoaded", () => {
       openAuthModalBtn.textContent = getUserLabel(user.email);
       openAuthModalBtn.title = user.email;
       openAuthModalBtn.classList.add("user-avatar-btn");
+      if (userDropdownEmail) userDropdownEmail.textContent = user.email;
     } else {
       openAuthModalBtn.textContent = "登入 / 註冊";
       openAuthModalBtn.title = "";
       openAuthModalBtn.classList.remove("user-avatar-btn");
+      if (userDropdownEmail) userDropdownEmail.textContent = "尚未登入";
+      closeDropdown();
     }
   }
+
+  if (openAuthModalBtn) {
+    openAuthModalBtn.addEventListener("click", () => {
+      if (currentVerifiedUser) {
+        if (userDropdown.classList.contains("hidden")) {
+          openDropdown();
+        } else {
+          closeDropdown();
+        }
+      } else {
+        openModal();
+      }
+    });
+  }
+
+  if (closeAuthModalBtn) {
+    closeAuthModalBtn.addEventListener("click", closeModal);
+  }
+
+  if (authModal) {
+    authModal.addEventListener("click", (e) => {
+      if (e.target === authModal) {
+        closeModal();
+      }
+    });
+  }
+
+  document.addEventListener("click", (e) => {
+    const wrapper = document.querySelector(".user-menu-wrapper");
+    if (wrapper && !wrapper.contains(e.target)) {
+      closeDropdown();
+    }
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      closeModal();
+      closeDropdown();
+    }
+  });
 
   if (signupForm) {
     signupForm.addEventListener("submit", async (e) => {
@@ -105,19 +171,20 @@ document.addEventListener("DOMContentLoaded", () => {
     logoutBtn.addEventListener("click", async () => {
       await signOut(auth);
       setMessage("已登出。");
+      closeDropdown();
     });
   }
 
   onAuthStateChanged(auth, (user) => {
-    if (!userStatus || !logoutBtn) return;
+    if (!userStatus) return;
 
     if (user && user.emailVerified) {
+      currentVerifiedUser = user;
       userStatus.textContent = `目前登入：${user.email}`;
-      logoutBtn.style.display = "inline-block";
       updateTopButton(user);
     } else {
+      currentVerifiedUser = null;
       userStatus.textContent = "尚未登入";
-      logoutBtn.style.display = "none";
       updateTopButton(null);
     }
   });

@@ -15,7 +15,15 @@
 
     <div class="nav-right">
       <input type="text" id="search" placeholder="搜尋科目 / 教授 / 年份..." />
-      <button id="openAuthModal" class="auth-open-btn" type="button">登入 / 註冊</button>
+
+      <div class="user-menu-wrapper">
+        <button id="openAuthModal" class="auth-open-btn" type="button">登入 / 註冊</button>
+
+        <div id="userDropdown" class="user-dropdown hidden">
+          <div id="userDropdownEmail" class="user-dropdown-email">尚未登入</div>
+          <button id="logoutBtn" type="button" class="user-dropdown-logout">登出</button>
+        </div>
+      </div>
     </div>
   </header>
 
@@ -83,51 +91,10 @@
         <input type="password" name="password" placeholder="密碼" required />
         <button type="submit">登入</button>
       </form>
-
-      <button id="logoutBtn" type="button" style="display:none;">登出</button>
     </div>
   </div>
 
   <script src="script.js"></script>
   <script type="module" src="auth.js"></script>
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const authModal = document.getElementById("authModal");
-      const openAuthModal = document.getElementById("openAuthModal");
-      const closeAuthModal = document.getElementById("closeAuthModal");
-
-      if (!authModal || !openAuthModal || !closeAuthModal) {
-        console.error("Modal elements not found");
-        return;
-      }
-
-      const openModal = () => {
-        authModal.classList.remove("hidden");
-        authModal.setAttribute("aria-hidden", "false");
-        document.body.classList.add("modal-open");
-      };
-
-      const closeModal = () => {
-        authModal.classList.add("hidden");
-        authModal.setAttribute("aria-hidden", "true");
-        document.body.classList.remove("modal-open");
-      };
-
-      openAuthModal.addEventListener("click", openModal);
-      closeAuthModal.addEventListener("click", closeModal);
-
-      authModal.addEventListener("click", (e) => {
-        if (e.target === authModal) {
-          closeModal();
-        }
-      });
-
-      document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape" && !authModal.classList.contains("hidden")) {
-          closeModal();
-        }
-      });
-    });
-  </script>
 </body>
 </html>
