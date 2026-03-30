@@ -1,35 +1,13 @@
 [
   {
-    "grade": "大一上",
-    "subject": "普通物理（一）",
-    "professor": "王XX",
-    "year": "113上",
-    "fileCategory": "期中考",
-    "fileType": "PDF",
-    "title": "113上 普物一 期中考",
-    "link": "https://example.com/file1.pdf",
-    "note": "有解答"
-  },
-  {
-    "grade": "大一上",
-    "subject": "普通物理（一）",
-    "professor": "王XX",
-    "year": "113上",
-    "fileCategory": "講義",
-    "fileType": "PDF",
-    "title": "113上 普物一 講義 Chapter 1",
-    "link": "https://example.com/file2.pdf",
-    "note": ""
-  },
-  {
     "grade": "大一下",
-    "subject": "電路學",
-    "professor": "陳XX",
-    "year": "113上",
-    "fileCategory": "期末考",
+    "subject": "線性代數",
+    "professor": "田仲豪",
+    "year": "114下",
+    "fileCategory": "第一次期中考",
     "fileType": "PDF",
-    "title": "113上 電路學 期末考",
-    "link": "https://example.com/file3.pdf",
-    "note": "回憶版"
+    "title": "114下 線性代數 第一次期中考",
+    "link": "files/114下_線性代數_第一次期中考.pdf",
+    "note": "無解答"
   }
 ]
