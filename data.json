@@ -31,6 +31,30 @@
     "title": "112下 電路學 第一次期中考",
     "link": "files/2024_Cir_Mid1.pdf",
     "note": "無解答"
-  }
-  
+  },
+  {
+    "grade": "大一上",
+    "subject": "化學",
+    "professor": "陳方中",
+    "year": "112上",
+    "fileCategory": "期中考",
+    "fileType": "PDF",
+    "title": "112上 化學 期中考",
+    "examlink": "files/2023_Chemistry_Midterm.pdf",
+    "solutionlink": "files/2023_Chemistry_Midterm_solution.pdf",
+    "note": "無解答"
+  },  
+  {
+    "grade": "大一上",
+    "subject": "化學",
+    "professor": "陳方中",
+    "year": "113上",
+    "fileCategory": "期中考",
+    "fileType": "PDF",
+    "title": "113上 化學 期中考",
+    "examlink": "files/2024_Chemistry_Midterm.pdf",
+    "solutionlink": "files/2024_Chemistry_Midterm_solution.pdf",
+    "note": "無解答"
+  },
+
 ]
