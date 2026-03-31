@@ -22,6 +22,10 @@ fetch(`data.json?v=${Date.now()}`)
     data = json.filter((item) => item.subject === subjectName);
     populateFilters(data);
     renderResources();
+  })
+  .catch((error) => {
+    console.error("載入 data.json 失敗：", error);
+    resourceList.innerHTML = `<div class="empty-state">資料載入失敗。</div>`;
   });
 
 function uniqueValues(list, key) {
@@ -74,16 +78,20 @@ function renderResources() {
     const div = document.createElement("div");
     div.className = "resource-item";
 
-    const examBtn = item.examLink
-      ? `<a href="${item.examLink}" target="_blank" class="file-btn">📄 考卷</a>`
+    // 相容舊格式 link，和新格式 examLink / solutionLink
+    const examHref = item.examLink || item.link || "";
+    const solutionHref = item.solutionLink || "";
+
+    const examBtn = examHref
+      ? `<a href="${examHref}" target="_blank" class="file-btn">📄 考卷</a>`
       : "";
 
-    const solutionBtn = item.solutionLink
-      ? `<a href="${item.solutionLink}" target="_blank" class="file-btn secondary">📘 解答</a>`
+    const solutionBtn = solutionHref
+      ? `<a href="${solutionHref}" target="_blank" class="file-btn secondary">📘 解答</a>`
       : "";
 
     div.innerHTML = `
-      <h3>${item.title}</h3>
+      <h3>${item.title || "未命名資料"}</h3>
 
       <div class="resource-topline">
         <span class="tag">${item.grade || "未分類"}</span>
@@ -93,7 +101,7 @@ function renderResources() {
         <span class="tag">${item.fileType || "未知"}</span>
       </div>
 
-      <div style="margin-top:10px; display:flex; gap:10px;">
+      <div style="margin-top:10px; display:flex; gap:10px; flex-wrap:wrap;">
         ${examBtn}
         ${solutionBtn}
       </div>
