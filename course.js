@@ -74,8 +74,17 @@ function renderResources() {
     const div = document.createElement("div");
     div.className = "resource-item";
 
+    const examBtn = item.examLink
+      ? `<a href="${item.examLink}" target="_blank" class="file-btn">📄 考卷</a>`
+      : "";
+
+    const solutionBtn = item.solutionLink
+      ? `<a href="${item.solutionLink}" target="_blank" class="file-btn secondary">📘 解答</a>`
+      : "";
+
     div.innerHTML = `
-      <h3><a href="${item.link}" target="_blank">${item.title}</a></h3>
+      <h3>${item.title}</h3>
+
       <div class="resource-topline">
         <span class="tag">${item.grade || "未分類"}</span>
         <span class="tag">${item.professor || "不詳"}</span>
@@ -83,6 +92,12 @@ function renderResources() {
         <span class="tag">${item.fileCategory || "其他"}</span>
         <span class="tag">${item.fileType || "未知"}</span>
       </div>
+
+      <div style="margin-top:10px; display:flex; gap:10px;">
+        ${examBtn}
+        ${solutionBtn}
+      </div>
+
       ${item.note ? `<div class="resource-note">備註：${item.note}</div>` : ""}
     `;
 

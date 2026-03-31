@@ -457,3 +457,20 @@ select {
   opacity: 1;
   box-shadow: 0 12px 24px rgba(138, 15, 92, 0.22);
 }
+.file-btn {
+  display: inline-block;
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: #8a0f5c;
+  color: white;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.file-btn:hover {
+  opacity: 0.9;
+}
+
+.file-btn.secondary {
+  background: #64748b;
+}
